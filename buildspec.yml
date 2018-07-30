@@ -1,0 +1,57 @@
+version: 0.2
+
+#env:
+#  variables:
+#    key: "value"
+#    key: "value"
+#  parameter-store:
+#    key: "value"
+#    key: "value"
+
+phases:
+  install:
+    commands:
+      - echo install started on `date`
+      ## 依存パッケージをインストール
+      - npm install
+
+      ## Dockerデーモンを起動し、正常に起動が終わるまで待つ。
+      - echo executed dockerd on `date`
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 --storage-driver=overlay&
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+      - echo dockerd started
+  pre_build:
+    commands:
+      ## ECRにログイン
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+
+      ## Dockerイメージのタグとして使用するため、Gitのコミットハッシュを取得
+      - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
+  build:
+    commands:
+      - echo Build started on `date`
+
+      ## テスト実行
+      - echo Testing the source code...
+      - npm test
+
+      ## Dockerイメージのビルド
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_REPOSITORY_NAME:$IMAGE_TAG .
+
+      ## DockerイメージのECRへのプッシュ
+      - docker push $IMAGE_REPOSITORY_NAME:$IMAGE_TAG
+      - echo Writing image definitions file...
+
+      ## ECSにどのイメージを使用するか指示するためのファイルを作成
+      - printf '[{"name":"fizzbuzz","imageUri":"%s"}]' $IMAGE_REPOSITORY_NAME:$IMAGE_TAG > imagedefinitions.json
+  post_build:
+    commands:
+      - echo Build completed on `date`
+#cache:
+#  paths:
+#   - path
+artifacts:
+  ## buildの最後で作成したファイルをアーティファクトを流す
+  files: imagedefinitions.json
