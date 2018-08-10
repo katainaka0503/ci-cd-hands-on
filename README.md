@@ -4,7 +4,7 @@
 1. 構成の簡単な紹介
 1. サンプルアプリケーションのフォーク及びクローン
 1. ハンズオン用環境構築用のCloudFormationの実行
-1. 手動デプロイしてみる
+1. 手動デプロイしてみる(講師が実演します)
 1. CodePipelineによるパイプラインの構築および自動デプロイの実行
 1. テストが失敗すると自動デプロイが止まるのを確認
 1. 再度正しいコードに戻して自動デプロイ
@@ -78,14 +78,14 @@ aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/99049011a73b9c92d2967f57d2331c56-640x360.png" alt="" width="640" height="360" class="alignnone size-medium wp-image-349754"/>
 
-## 4. 手動デプロイしてみる
+## 4. 手動デプロイしてみる（講師が実演します。読み飛ばし可）
 
 ecs-deployのようなデプロイに便利なツールもありますが、CodeBuildで行う処理との対比をわかりやすくするため、ここではそういったものは使わずにデプロイを実行します。
 
 まずはデプロイされたことがわかりやすくするため、画面を修正します。
 ```shell
 $ vim template/views/index.ejs
-$ git commit -am "manual deploy"$ 
+$ git commit -am "manual deploy"
 ```
 
 つぎに以下のコマンドを実行し、手動でデプロイを実行します。
@@ -177,8 +177,8 @@ ECSの設定の修正で使用するため、イメージをプッシュした�
 | 入力項目                 | 値                                                      |
 | ------------------------ | ------------------------------------------------------- |
 | デプロイプロバイダ         | Amazon ECS                                          |
-| クラスター名       | <ハンズオン環境用 CloudFormationスタック名>-ECS-Cluster                          |
-| サービス名           |  <ハンズオン環境用 CloudFormationスタック名>-ECS-Service                |
+| クラスター名       | <ハンズオン環境用 CloudFormationスタック名>-ECSCluster                          |
+| サービス名           |  <ハンズオン環境用 CloudFormationスタック名>-ECSService                |
 | イメージのファイル名             | imagedefinitions.json              |
 
 CodePipelineにアタッチするIAM Roleの画面に変わるので、「ロールの作成」をクリック後、遷移する画面で「許可」をクリックします。
