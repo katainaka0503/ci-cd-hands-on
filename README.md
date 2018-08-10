@@ -292,3 +292,14 @@ CloudFormationスタックおよびクローンしたGitHubのリポジトリは
 ### GitHub
 
 - クローンしたリポジトリの削除
+
+## 参考資料
+### EC2にCodeDeployでデプロイするパターン
+- [「AWSとGitHubで始めるDevOpsハンズオン」の資料を公開します！](https://dev.classmethod.jp/etc/aws-github-devops-hands-on/)
+
+### プルリクをビルドしたいパターン
+- [CodeBuild で GitHub のプルリクエストを自動ビルドして、結果を表示する](https://dev.classmethod.jp/cloud/aws/codebuild-github-pullrequest-settings/)
+
+### サーバレスパターン
+- [CodeDeployを利用したLambdaのバージョン間の段階デプロイ](https://dev.classmethod.jp/cloud/aws/aws-reinvent-codedeploy-lambda/)
+- [AWS SAMを通してCodeDeployを利用したLambda関数のデプロイを理解する](https://dev.classmethod.jp/server-side/serverless/understanding-lambda-deploy-with-codedeploy-using-aws-sam/)
