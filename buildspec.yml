@@ -14,12 +14,6 @@ phases:
       - echo install started on `date`
       ## 依存パッケージをインストール
       - npm install
-
-      ## Dockerデーモンを起動し、正常に起動が終わるまで待つ。
-      - echo executed dockerd on `date`
-      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 --storage-driver=overlay&
-      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
-      - echo dockerd started
   pre_build:
     commands:
       ## ECRにログイン
