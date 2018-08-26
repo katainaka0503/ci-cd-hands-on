@@ -189,8 +189,8 @@ Resources:
   ECSTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: 512
-      Memory: 1GB
+      Cpu: 256
+      Memory: 0.5GB
       Family: !Sub ${AWS::StackName}-Task
       NetworkMode: awsvpc
       RequiresCompatibilities: 
