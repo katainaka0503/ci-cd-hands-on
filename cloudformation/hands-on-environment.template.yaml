@@ -52,9 +52,15 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref VpcCIDR 
+    Tags:
+      - Key: Name
+        Value: demo-infra-VPC
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
+    Tags:
+      - Key: Name
+        Value: demo-infra-InternetGateway
 
   InternetGatewayAttachment:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -69,6 +75,9 @@ Resources:
       AvailabilityZone: !Select [ 0, !GetAZs '' ]
       CidrBlock: !Ref PublicSubnet1CIDR
       MapPublicIpOnLaunch: true
+    Tags:
+      - Key: Name
+        Value: demo-infra-PublicSubnet1
 
   PublicSubnet2: 
     Type: AWS::EC2::Subnet
@@ -77,11 +86,37 @@ Resources:
       AvailabilityZone: !Select [ 1, !GetAZs '' ]
       CidrBlock: !Ref PublicSubnet2CIDR
       MapPublicIpOnLaunch: true
+    Tags:
+      - Key: Name
+        Value: demo-infra-PublicSubnet2
+
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: !Ref PrivateSubnet1CIDR
+    Tags:
+      - Key: Name
+        Value: demo-infra-PrivateSubnet1
+
+  PrivateSubnet2: 
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: !Ref PrivateSubnet2CIDR
+    Tags:
+      - Key: Name
+        Value: demo-infra-PrivateSubnet2
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties: 
       VpcId: !Ref VPC
+    Tags:
+      - Key: Name
+        Value: demo-infra-PublicRouteTable
 
   DefaultPublicRoute: 
     Type: AWS::EC2::Route
@@ -102,37 +137,14 @@ Resources:
     Properties:
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnet2
-
-  PrivateSubnet1:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      CidrBlock: !Ref PrivateSubnet1CIDR
-
-  PrivateSubnet2: 
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 1, !GetAZs '' ]
-      CidrBlock: !Ref PrivateSubnet2CIDR
-
-  NatGatewayEIP:
-    Type: AWS::EC2::EIP
-    DependsOn: InternetGatewayAttachment
-    Properties: 
-      Domain: vpc
-  
-  NatGateway: 
-    Type: AWS::EC2::NatGateway
-    Properties: 
-      AllocationId: !GetAtt NatGatewayEIP.AllocationId
-      SubnetId: !Ref PublicSubnet1
   
   PrivateRouteTable:
     Type: AWS::EC2::RouteTable
     Properties: 
       VpcId: !Ref VPC
+    Tags:
+      - Key: Name
+        Value: demo-infra-PrivateRouteTable
 
   DefaultPrivateRoute:
     Type: AWS::EC2::Route
@@ -153,6 +165,21 @@ Resources:
       RouteTableId: !Ref PrivateRouteTable
       SubnetId: !Ref PrivateSubnet2
 
+  NatGatewayEIP:
+    Type: AWS::EC2::EIP
+    DependsOn: InternetGatewayAttachment
+    Properties: 
+      Domain: vpc
+  
+  NatGateway: 
+    Type: AWS::EC2::NatGateway
+    Properties: 
+      AllocationId: !GetAtt NatGatewayEIP.AllocationId
+      SubnetId: !Ref PublicSubnet1
+    Tags:
+      - Key: Name
+        Value: demo-infra-NatGateway
+
   FargateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -164,6 +191,22 @@ Resources:
           FromPort: '80'
           ToPort: '80'
           SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+    Tags:
+      - Key: Name
+        Value: demo-infra-FargateSecurityGroup
+  
+  ALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: "alb-sg"
+      GroupDescription: Access to the public facing load balancer
+      VpcId: !Ref 'VPC'
+      SecurityGroupIngress:
+          - CidrIp: 0.0.0.0/0
+            IpProtocol: -1
+    Tags:
+      - Key: Name
+        Value: demo-infra-ALBSecurityGroup
 
   ## ECS Resources
   ECSCluster:
@@ -226,7 +269,7 @@ Resources:
     DependsOn: LoadBalancerListener
 
   ## ALB Resources
-  LoadBalancer:
+  ALB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internet-facing
@@ -236,16 +279,7 @@ Resources:
       Subnets:
         - !Ref PublicSubnet1
         - !Ref PublicSubnet2
-      SecurityGroups: [!Ref 'LoadBalancerSecurityGroup']
-  
-  LoadBalancerSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Access to the public facing load balancer
-      VpcId: !Ref 'VPC'
-      SecurityGroupIngress:
-          - CidrIp: 0.0.0.0/0
-            IpProtocol: -1
+      SecurityGroups: [!Ref 'ALBSecurityGroup']
 
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
@@ -271,10 +305,9 @@ Resources:
       LoadBalancerArn: !Ref LoadBalancer
       Port: 80
       Protocol: HTTP
-
-  ## Code Build Service Role(Default + ECR
-  CodeBuildServiceRole:
-    Type: AWS::IAM::Role
+  
+  ## Code Build Service Role(Default + ECR Push)
+  Type: AWS::IAM::Role
     Properties:
       RoleName: !Sub ${AWS::StackName}-CodeBuild-ServiceRole
       AssumeRolePolicyDocument:
