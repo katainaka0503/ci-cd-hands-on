@@ -33,7 +33,7 @@ Parameters:
   ContainerImage:
     Description: Please enter container image for ECS.
     Type: String
-    Default: 738965884675.dkr.ecr.ap-northeast-1.amazonaws.com/ci-cd-hands-on:latest
+    Default: 738965884675.dkr.ecr.ap-northeast-1.amazonaws.com/ci-cd-hands-on:node
 
 Resources:
   ECRRepository:
@@ -52,15 +52,16 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref VpcCIDR 
-    Tags:
-      - Key: Name
-        Value: demo-infra-VPC
+      Tags:
+        - Key: Name
+          Value: demo-infra-VPC
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
-    Tags:
-      - Key: Name
-        Value: demo-infra-InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: demo-infra-InternetGateway
 
   InternetGatewayAttachment:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -75,9 +76,9 @@ Resources:
       AvailabilityZone: !Select [ 0, !GetAZs '' ]
       CidrBlock: !Ref PublicSubnet1CIDR
       MapPublicIpOnLaunch: true
-    Tags:
-      - Key: Name
-        Value: demo-infra-PublicSubnet1
+      Tags:
+        - Key: Name
+          Value: demo-infra-PublicSubnet1
 
   PublicSubnet2: 
     Type: AWS::EC2::Subnet
@@ -86,9 +87,9 @@ Resources:
       AvailabilityZone: !Select [ 1, !GetAZs '' ]
       CidrBlock: !Ref PublicSubnet2CIDR
       MapPublicIpOnLaunch: true
-    Tags:
-      - Key: Name
-        Value: demo-infra-PublicSubnet2
+      Tags:
+        - Key: Name
+          Value: demo-infra-PublicSubnet2
 
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
@@ -96,9 +97,9 @@ Resources:
       VpcId: !Ref VPC
       AvailabilityZone: !Select [ 0, !GetAZs '' ]
       CidrBlock: !Ref PrivateSubnet1CIDR
-    Tags:
-      - Key: Name
-        Value: demo-infra-PrivateSubnet1
+      Tags:
+        - Key: Name
+          Value: demo-infra-PrivateSubnet1
 
   PrivateSubnet2: 
     Type: AWS::EC2::Subnet
@@ -106,17 +107,17 @@ Resources:
       VpcId: !Ref VPC
       AvailabilityZone: !Select [ 1, !GetAZs '' ]
       CidrBlock: !Ref PrivateSubnet2CIDR
-    Tags:
-      - Key: Name
-        Value: demo-infra-PrivateSubnet2
+      Tags:
+        - Key: Name
+          Value: demo-infra-PrivateSubnet2
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties: 
       VpcId: !Ref VPC
-    Tags:
-      - Key: Name
-        Value: demo-infra-PublicRouteTable
+      Tags:
+        - Key: Name
+          Value: demo-infra-PublicRouteTable
 
   DefaultPublicRoute: 
     Type: AWS::EC2::Route
@@ -142,9 +143,9 @@ Resources:
     Type: AWS::EC2::RouteTable
     Properties: 
       VpcId: !Ref VPC
-    Tags:
-      - Key: Name
-        Value: demo-infra-PrivateRouteTable
+      Tags:
+        - Key: Name
+          Value: demo-infra-PrivateRouteTable
 
   DefaultPrivateRoute:
     Type: AWS::EC2::Route
@@ -176,9 +177,9 @@ Resources:
     Properties: 
       AllocationId: !GetAtt NatGatewayEIP.AllocationId
       SubnetId: !Ref PublicSubnet1
-    Tags:
-      - Key: Name
-        Value: demo-infra-NatGateway
+      Tags:
+        - Key: Name
+          Value: demo-infra-NatGateway
 
   FargateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -190,10 +191,10 @@ Resources:
         - IpProtocol: tcp
           FromPort: '80'
           ToPort: '80'
-          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
-    Tags:
-      - Key: Name
-        Value: demo-infra-FargateSecurityGroup
+          SourceSecurityGroupId: !Ref ALBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: demo-infra-FargateSecurityGroup
   
   ALBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -204,9 +205,9 @@ Resources:
       SecurityGroupIngress:
           - CidrIp: 0.0.0.0/0
             IpProtocol: -1
-    Tags:
-      - Key: Name
-        Value: demo-infra-ALBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: demo-infra-ALBSecurityGroup
 
   ## ECS Resources
   ECSCluster:
@@ -302,12 +303,13 @@ Resources:
       DefaultActions:
         - TargetGroupArn: !Ref TargetGroup
           Type: forward
-      LoadBalancerArn: !Ref LoadBalancer
+      LoadBalancerArn: !Ref ALB
       Port: 80
       Protocol: HTTP
   
   ## Code Build Service Role(Default + ECR Push)
-  Type: AWS::IAM::Role
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
     Properties:
       RoleName: !Sub ${AWS::StackName}-CodeBuild-ServiceRole
       AssumeRolePolicyDocument:
@@ -349,7 +351,7 @@ Resources:
 Outputs:
   ALBDNSName:
     Description: Endpoint URL of ALB
-    Value: !GetAtt LoadBalancer.DNSName
+    Value: !Sub http://${ALB.DNSName}
   ImageRepositoryName: 
     Description: Repository for the image built with CodeBuild
     Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ECRRepository}

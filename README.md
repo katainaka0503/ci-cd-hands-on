@@ -81,7 +81,7 @@ aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 
 空の ECS のクラスタを作成し、すぐに削除するなどして ECS のサービスにリンクしたロールが作成された状態にします。
 
-[Launch Stack](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=hands-on-environment&templateURL=https://s3-ap-northeast-1.amazonaws.com/ci-cd-hands-on-template/hands-on-environment.template.yaml)
+[Launch Stack](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=hands-on-environment&templateURL=https://s3-ap-northeast-1.amazonaws.com/ci-cd-hands-on-template/node/hands-on-environment.template.yaml)
 
 上のリンクより、ハンズオン用の環境を構築するための CloudFormation を実行します。
 
