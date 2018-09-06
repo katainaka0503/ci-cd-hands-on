@@ -61,10 +61,9 @@ $ git clone git@github.com:<ご自分のgithubのアカウント名>/ci-cd-hands
 ```shell
 $ cd ci-cd-handson
 $ ls
-Dockerfile	Rakefile	config		log		template
-Gemfile		app		config.ru	package.json	tmp
-Gemfile.lock	bin		db		public		vendor
-README.md	buildspec.yml	lib		spec
+Dockerfile		cloudformation		src
+README.md		package-lock.json	template
+buildspec.yml		package.json		test
 ```
 
 ## 3. ハンズオン用環境構築用の CloudFormation の実行
@@ -106,7 +105,9 @@ ecs-deploy のようなデプロイに便利なツールもありますが、Cod
 まずはデプロイされたことがわかりやすくするため、画面を修正します。
 
 ```shell
+$ npm install
 $ vim template/views/index.ejs
+$ npm test
 $ git commit -am "manual deploy"
 ```
 
@@ -352,9 +353,9 @@ CodePipelineでの他のプロジェクトが存在しない場合は`AWS-CodePi
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/1a31704e05462dde8750e59651f7888e-640x280.png" alt="" width="640" height="280" class="alignnone size-medium wp-image-354251" />
 
 もし、`hands-on-xxx` のフォルダだけしかなければ、バケット自体を削除します。
- 
+
 <img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/c72ecc6de66e24061ef1a12a12552659-640x382.png" alt="" width="640" height="382" class="alignnone size-medium wp-image-354252" />
- 
+
 他のフォルダがあれば、フォルダ以下を削除します。
 
 #### ECR リポジトリ内のイメージをすべて削除
