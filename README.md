@@ -195,7 +195,6 @@ ECS の設定の修正で使用するため、イメージをプッシュした�
 | CodeBuild サービスロール | `アカウントから既存のロールを選択します`を選択し環境構築用スタックの出力の値を入力            |
 | VPC                      | No VPC                                                                                        |
 | 特権付与(アドバンスト内) | ✔                                                                                             |
-| 環境変数(アドバンスト内) | 名前：`IMAGE_REPOSITORY_NAME`, <br> 値:`IMAGE_REPOSITORY_NAME`, <br> Type: `パラメータストア` |
 
 デプロイプロバイダのセットアップが始まるのでプロバイダに「Amazon ECS」を入力後、「AWS CodeDeploy に新たにアプリケーションを作成します。」のリンクをクリックします。
 
@@ -204,7 +203,7 @@ ECS の設定の修正で使用するため、イメージをプッシュした�
 | デプロイプロバイダ   | Amazon ECS                      |
 | クラスター名         | hands-on-environment-ECSCluster |
 | サービス名           | hands-on-environment-ECSService |
-| イメージのファイル名 | imagedefinitions.json           |
+| イメージのファイル名 | `imagedefinitions.json`           |
 
 CodePipeline にアタッチする IAM Role の画面に変わるので、「ロールの作成」をクリック後、遷移する画面で「許可」をクリックします。
 

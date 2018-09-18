@@ -1,0 +1,262 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: 
+  'Pipeline template'
+
+Parameters:
+  Env:
+    Type: String
+    Default: demo
+  GitHubOwner:
+    Type: String
+    Default: katainaka0503
+  GitHubRepo:
+    Type: String
+    Default: ci-cd-hands-on
+  GitHubBranch:
+    Type: String
+    Default: master
+  GitHubOAuthToken:
+    Type: String
+    NoEcho: True
+  GitHubWebhookSecretToken:
+    Type: String
+    NoEcho: True
+  CodeBuildEnvironmentImage:
+    Type: String
+    Default: aws/codebuild/nodejs:10.1.0
+  CodePipelineArtifactStoreBucket:
+    Type: String
+    Default: codepipeline-ap-northeast-1-376338317533
+
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - Label:
+          default: "CodePipeline General Configuration"
+        Parameters:
+          - CodePipelineArtifactStoreBucket
+      - Label: 
+          default: "GitHub Configuration"
+        Parameters: 
+          - CodeBuildEnvironmentImage
+      - Label: 
+          default: "CodeBuild Configuration"
+        Parameters: 
+          - GitHubOwner
+          - GitHubRepo
+          - GitHubBranch
+          - GitHubOAuthToken
+          - GitHubWebhookSecretToken
+    ParameterLabels: 
+      VPCID: 
+        default: "Which VPC should this be deployed to?"
+
+
+Resources:
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties: 
+      Artifacts: 
+        Type: CODEPIPELINE
+      Source:
+        Type: CODEPIPELINE
+      Description: |
+        サンプルアプリケーションをパイプライン内でビルドするプロジェクトです。
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: !Ref CodeBuildEnvironmentImage
+        PrivilegedMode: true
+        Type: LINUX_CONTAINER
+      Name: !Sub ${Env}-fizzbuzz-codebuildProject
+      ServiceRole: !ImportValue HandsOnCodeBuildServiceRoleArn
+      Tags: 
+        - Key: Env
+          Value: !Ref Env
+        - Key: Stack
+          Value: !Ref AWS::StackName
+
+  CodePipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        !Sub ${Env}-fizzbuzz-codepipelineServiceRole
+      Policies:
+        - PolicyName: !Sub ${Env}-fizzbuzz-codepipelineServiceRolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+                Resource: "*"
+                Effect: Allow
+              - Action:
+                  - s3:PutObject
+                Resource:
+                  - arn:aws:s3:::codepipeline*
+                  - arn:aws:s3:::elasticbeanstalk*
+                Effect: Allow
+              - Action:
+                  - codecommit:CancelUploadArchive
+                  - codecommit:GetBranch
+                  - codecommit:GetCommit
+                  - codecommit:GetUploadArchiveStatus
+                  - codecommit:UploadArchive
+                Resource: "*"
+                Effect: Allow
+              - Action:
+                  - codedeploy:CreateDeployment
+                  - codedeploy:GetApplicationRevision
+                  - codedeploy:GetDeployment
+                  - codedeploy:GetDeploymentConfig
+                  - codedeploy:RegisterApplicationRevision
+                Resource: "*"
+                Effect: Allow
+              - Action:
+                  - elasticbeanstalk:*
+                  - ec2:*
+                  - elasticloadbalancing:*
+                  - autoscaling:*
+                  - cloudwatch:*
+                  - s3:*
+                  - sns:*
+                  - cloudformation:*
+                  - rds:*
+                  - sqs:*
+                  - ecs:*
+                  - iam:PassRole
+                Resource: "*"
+                Effect: Allow
+              - Action:
+                  - lambda:InvokeFunction
+                  - lambda:ListFunctions
+                Resource: "*"
+                Effect: Allow
+              - Action:
+                  - opsworks:CreateDeployment
+                  - opsworks:DescribeApps
+                  - opsworks:DescribeCommands
+                  - opsworks:DescribeDeployments
+                  - opsworks:DescribeInstances
+                  - opsworks:DescribeStacks
+                  - opsworks:UpdateApp
+                  - opsworks:UpdateStack
+                Resource: "*"
+                Effect: Allow
+              - Action:
+                  - cloudformation:CreateStack
+                  - cloudformation:DeleteStack
+                  - cloudformation:DescribeStacks
+                  - cloudformation:UpdateStack
+                  - cloudformation:CreateChangeSet
+                  - cloudformation:DeleteChangeSet
+                  - cloudformation:DescribeChangeSet
+                  - cloudformation:ExecuteChangeSet
+                  - cloudformation:SetStackPolicy
+                  - cloudformation:ValidateTemplate
+                  - iam:PassRole
+                Resource: "*"
+                Effect: Allow
+              - Action:
+                  - codebuild:BatchGetBuilds
+                  - codebuild:StartBuild
+                Resource: "*"
+                Effect: Allow
+              - Effect: Allow
+                Action:
+                  - devicefarm:ListProjects
+                  - devicefarm:ListDevicePools
+                  - devicefarm:GetRun
+                  - devicefarm:GetUpload
+                  - devicefarm:CreateUpload
+                  - devicefarm:ScheduleRun
+                Resource: "*"
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Principal: 
+              Service: 
+                - "codepipeline.amazonaws.com"
+            Action: 
+              - "sts:AssumeRole"
+
+  CodePipeline: 
+    Type: AWS::CodePipeline::Pipeline
+    Properties: 
+      Name:
+        !Sub ${Env}-fizzbuzz-codepipeline
+      RoleArn: 
+        !GetAtt CodePipelineServiceRole.Arn
+      Stages: 
+        - Name: Source
+          Actions: 
+            - Name: SourceAction
+              ActionTypeId: 
+                Category: Source
+                Owner: ThirdParty
+                Version: 1
+                Provider: GitHub
+              OutputArtifacts: 
+                - Name: SourceOutput
+              Configuration: 
+                Owner: !Ref GitHubOwner
+                Repo: !Ref GitHubRepo
+                Branch: !Ref GitHubBranch
+                OAuthToken: !Ref GitHubOAuthToken
+              RunOrder: 1
+        - Name: Build
+          Actions: 
+            - Name: BuildAction
+              InputArtifacts: 
+                - Name: SourceOutput
+              OutputArtifacts: 
+                - Name: ImageDefinitions
+              ActionTypeId: 
+                Category: Build
+                Owner: AWS
+                Version: 1
+                Provider: CodeBuild
+              Configuration: 
+                ProjectName: 
+                  !Ref CodeBuildProject
+              RunOrder: 1
+        - Name: Deploy
+          Actions: 
+            - Name: DeployAction
+              InputArtifacts: 
+                - Name: ImageDefinitions
+              ActionTypeId: 
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: ECS
+              Configuration: 
+                ClusterName: 
+                  !ImportValue HandsOnECSClusterName
+                ServiceName: 
+                  !ImportValue HandsOnECSServiceName
+                FileName: imagedefinitions.json
+              RunOrder: 1
+      ArtifactStore: 
+        Type: S3
+        Location: 
+          !Ref CodePipelineArtifactStoreBucket
+
+  Webhook:
+    Type: 'AWS::CodePipeline::Webhook'
+    Properties:
+      AuthenticationConfiguration:
+        SecretToken: !Ref GitHubWebhookSecretToken
+      Filters:
+        - JsonPath: "$.ref"
+          MatchEquals: refs/heads/{Branch}
+      Authentication: GITHUB_HMAC
+      TargetPipeline: !Ref CodePipeline
+      TargetAction: SourceAction
+      Name: !Sub ${Env}-fizzbuzz-codepipelineWebhook
+      TargetPipelineVersion: !GetAtt CodePipeline.Version
+      RegisterWithThirdParty: 'true'
