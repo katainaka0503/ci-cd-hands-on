@@ -325,6 +325,33 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
+              - Sid: CloudWatchLogsPolicy
+                Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - "*"
+              - Sid: CodeCommitPolicy
+                Effect: Allow
+                Action:
+                  - codecommit:GitPull
+                Resource:
+                  - "*"
+              - Sid: S3GetObjectPolicy
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource:
+                  - "*"
+              - Sid: S3PutObjectPolicy
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource:
+                  - "*"
               - Sid: ECRPowerUserPolicy
                 Effect: Allow
                 Action:
@@ -357,10 +384,16 @@ Outputs:
     Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ECRRepository}
   CodeBuildServiceRole:
     Description: CodeBuild service role
-    Value: !Ref CodeBuildServiceRole
+    Value: !GetAtt CodeBuildServiceRole.Arn
+    Export:
+      Name: HandsOnCodeBuildServiceRoleArn
   ECSClusterName:
     Description: Cluster Name of ECS
     Value: !Ref ECSCluster
+    Export:
+      Name: HandsOnECSClusterName
   ECSServiceName:
     Description: Service Name of ECS
     Value: !GetAtt ECSService.Name
+    Export:
+      Name: HandsOnECSServiceName
