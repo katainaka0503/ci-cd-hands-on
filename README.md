@@ -118,7 +118,7 @@ $ git commit -am "manual deploy"
 ```
 $ $(aws ecr get-login --no-include-email --region ap-northeast-1)
 
-$ IMAGE_REPOSITORY_NAME=`aws ssm get-parameter --name "IMAGE_REPOSITORY_NAME"| jq -r .Parameter.Value`
+$ IMAGE_REPOSITORY_NAME=`aws ssm get-parameter --name "IMAGE_REPOSITORY_NAME" --region ap-northeast-1 | jq -r .Parameter.Value`
 $ IMAGE_TAG=`git rev-parse HEAD`
 $ docker build -t $IMAGE_REPOSITORY_NAME:$IMAGE_TAG .
 $ docker push $IMAGE_REPOSITORY_NAME:$IMAGE_TAG
