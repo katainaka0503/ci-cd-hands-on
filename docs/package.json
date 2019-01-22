@@ -1,0 +1,20 @@
+{
+  "name": "ci-cd-hands-on",
+  "version": "1.0.0",
+  "description": "## アジェンダ",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-copy-code-button": "0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "gitbook": "gitbook",
+    "build": "gitbook build ./ ../docs/"
+  },
+  "author": "",
+  "license": "ISC"
+}

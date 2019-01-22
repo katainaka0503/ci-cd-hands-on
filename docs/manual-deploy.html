@@ -1,0 +1,367 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>手動デプロイしてみる · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="codepipeline.html" />
+    
+    
+    <link rel="prev" href="architecture.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="preparation.html">
+            
+                <a href="preparation.html">
+            
+                    
+                    パイプライン構築の準備
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="architecture.html">
+            
+                <a href="architecture.html">
+            
+                    
+                    ハンズオンで構築する構成
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="manual-deploy.html">
+            
+                <a href="manual-deploy.html">
+            
+                    
+                    手動デプロイしてみる
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="codepipeline.html">
+            
+                <a href="codepipeline.html">
+            
+                    
+                    CodePipeline によるパイプラインの構築
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="auto_deploy.html">
+            
+                <a href="auto_deploy.html">
+            
+                    
+                    自動デプロイ！
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="stop-when-test-failed.html">
+            
+                <a href="stop-when-test-failed.html">
+            
+                    
+                    テスト失敗時にデプロイが止まることを確認
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="conclusion.html">
+            
+                <a href="conclusion.html">
+            
+                    
+                    まとめ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="delete-environment.html">
+            
+                <a href="delete-environment.html">
+            
+                    
+                    補足：環境の削除
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >手動デプロイしてみる</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="&#x624B;&#x52D5;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x3057;&#x3066;&#x307F;&#x308B;&#xFF08;&#x8B1B;&#x5E2B;&#x304C;&#x5B9F;&#x6F14;&#x3057;&#x307E;&#x3059;&#x3002;&#x8AAD;&#x307F;&#x98DB;&#x3070;&#x3057;&#x53EF;&#xFF09;">&#x624B;&#x52D5;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x3057;&#x3066;&#x307F;&#x308B;&#xFF08;&#x8B1B;&#x5E2B;&#x304C;&#x5B9F;&#x6F14;&#x3057;&#x307E;&#x3059;&#x3002;&#x8AAD;&#x307F;&#x98DB;&#x3070;&#x3057;&#x53EF;&#xFF09;</h2>
+<p>ecs-deploy &#x306E;&#x3088;&#x3046;&#x306A;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x306B;&#x4FBF;&#x5229;&#x306A;&#x30C4;&#x30FC;&#x30EB;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x304C;&#x3001;CodeBuild &#x3067;&#x884C;&#x3046;&#x51E6;&#x7406;&#x3068;&#x306E;&#x5BFE;&#x6BD4;&#x3092;&#x308F;&#x304B;&#x308A;&#x3084;&#x3059;&#x304F;&#x3059;&#x308B;&#x305F;&#x3081;&#x3001;&#x3053;&#x3053;&#x3067;&#x306F;&#x305D;&#x3046;&#x3044;&#x3063;&#x305F;&#x3082;&#x306E;&#x306F;&#x4F7F;&#x308F;&#x305A;&#x306B;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305A;&#x306F;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x3055;&#x308C;&#x305F;&#x3053;&#x3068;&#x304C;&#x308F;&#x304B;&#x308A;&#x3084;&#x3059;&#x304F;&#x3059;&#x308B;&#x305F;&#x3081;&#x3001;&#x753B;&#x9762;&#x3092;&#x4FEE;&#x6B63;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-shell">npm install
+vim template/views/index.ejs
+npm test
+git commit -am &quot;manual deploy&quot;
+</code></pre>
+<p>&#x3064;&#x304E;&#x306B;&#x4EE5;&#x4E0B;&#x306E;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x3001;&#x624B;&#x52D5;&#x3067;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305A;&#x3001;&#x624B;&#x5143;&#x3067; Docker &#x30A4;&#x30E1;&#x30FC;&#x30B8;&#x3092;&#x69CB;&#x7BC9;&#x3057;&#x3001;ECR &#x306B;&#x30D7;&#x30C3;&#x30B7;&#x30E5;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>$(aws ecr get-login --no-include-email --region ap-northeast-1)
+
+IMAGE_REPOSITORY_NAME=`aws ssm get-parameter --name &quot;IMAGE_REPOSITORY_NAME&quot; --region ap-northeast-1 | jq -r .Parameter.Value`
+IMAGE_TAG=`git rev-parse HEAD`
+docker build -t $IMAGE_REPOSITORY_NAME:$IMAGE_TAG .
+docker push $IMAGE_REPOSITORY_NAME:$IMAGE_TAG
+
+echo $IMAGE_REPOSITORY_NAME:$IMAGE_TAG
+</code></pre><p>ECS &#x306E;&#x8A2D;&#x5B9A;&#x306E;&#x4FEE;&#x6B63;&#x3067;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x305F;&#x3081;&#x3001;&#x30A4;&#x30E1;&#x30FC;&#x30B8;&#x3092;&#x30D7;&#x30C3;&#x30B7;&#x30E5;&#x3057;&#x305F;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x3068;&#x30BF;&#x30B0;&#x306E;&#x5024;&#x3092;&#x899A;&#x3048;&#x3066;&#x304A;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x3053;&#x307E;&#x3067;&#x306E;&#x64CD;&#x4F5C;&#x306E;&#x4E2D;&#x3067;&#x3082;&#x3001;&#x30D7;&#x30C3;&#x30B7;&#x30E5;&#x3059;&#x308B;&#x5BFE;&#x8C61;&#x3068;&#x306F;&#x7570;&#x306A;&#x308B;&#x30D6;&#x30E9;&#x30F3;&#x30C1;&#x3067;&#x4F5C;&#x696D;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x305F;&#x5834;&#x5408;&#x3084;&#x3001;&#x30EA;&#x30E2;&#x30FC;&#x30C8;&#x30D6;&#x30E9;&#x30F3;&#x30C1;&#x3068;&#x306E;&#x540C;&#x671F;&#x3092;&#x5FD8;&#x308C;&#x308B;&#x306A;&#x3069;&#x3057;&#x305F;&#x5834;&#x5408;&#x306B;&#x306F;&#x610F;&#x56F3;&#x3057;&#x305F;&#x3082;&#x306E;&#x3068;&#x306F;&#x7570;&#x306A;&#x308B;&#x30BD;&#x30FC;&#x30B9;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x3057;&#x3066;&#x3057;&#x307E;&#x3046;&#x30EA;&#x30B9;&#x30AF;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3064;&#x304E;&#x306B;&#x3001;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306E;&#x64CD;&#x4F5C;&#x306B;&#x79FB;&#x308A;&#x3001;&#x5B9F;&#x969B;&#x306B; ECS &#x3078;&#x306E;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30DE;&#x30CD;&#x30B8;&#x30E1;&#x30F3;&#x30C8;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x304B;&#x3089; ECS &#x306E;&#x753B;&#x9762;&#x306B;&#x79FB;&#x52D5;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/ecs-640x483.png" alt="" width="640" height="483" class="alignnone size-medium wp-image-349183"></p>
+<p>&#x307E;&#x305A;&#x3001;&#x30BF;&#x30B9;&#x30AF;&#x5B9A;&#x7FA9;&#x306E;&#x65B0;&#x3057;&#x3044;&#x30EA;&#x30D3;&#x30B8;&#x30E7;&#x30F3;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x74B0;&#x5883;&#x69CB;&#x7BC9;&#x7528;&#x30B9;&#x30BF;&#x30C3;&#x30AF;&#x306B;&#x3088;&#x3063;&#x3066;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x305F;&#x30BF;&#x30B9;&#x30AF;&#x306E;&#x65B0;&#x3057;&#x3044;&#x30EA;&#x30D3;&#x30B8;&#x30E7;&#x30F3;&#x306E;&#x4F5C;&#x6210;&#x753B;&#x9762;&#x3092;&#x8868;&#x793A;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x30B3;&#x30F3;&#x30C6;&#x30CA;&#x540D; fizzbuzz &#x306E;&#x8A2D;&#x5B9A;&#x753B;&#x9762;&#x306B;&#x79FB;&#x52D5;&#x3057;&#x3001;&#x30A4;&#x30E1;&#x30FC;&#x30B8;&#x306E;&#x6307;&#x5B9A;&#x3092;&#x5148;&#x7A0B;&#x30D7;&#x30C3;&#x30B7;&#x30E5;&#x3057;&#x305F;&#x30A4;&#x30E1;&#x30FC;&#x30B8;&#x306E;&#x3082;&#x306E;&#x306B;&#x66F8;&#x304D;&#x63DB;&#x3048;&#x65B0;&#x3057;&#x3044;&#x30EA;&#x30D3;&#x30B8;&#x30E7;&#x30F3;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/a3eea352fa04680f29ce2e75163b5ca5-640x344.png" alt="" width="640" height="344" class="alignnone size-medium wp-image-349193"></p>
+<p>&#x6B21;&#x306B;&#x3001;&#x74B0;&#x5883;&#x69CB;&#x7BC9;&#x7528;&#x30B9;&#x30BF;&#x30C3;&#x30AF;&#x306B;&#x3088;&#x3063;&#x3066;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x305F;&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x306E;&#x7DE8;&#x96C6;&#x753B;&#x9762;&#x306B;&#x79FB;&#x52D5;&#x3057;&#x3001;&#x65B0;&#x3057;&#x3044;&#x30BF;&#x30B9;&#x30AF;&#x5B9A;&#x7FA9;&#x306E;&#x30EA;&#x30D3;&#x30B8;&#x30E7;&#x30F3;&#x3092;&#x6307;&#x5B9A;&#x3059;&#x308B;&#x3088;&#x3046;&#x306B;&#x7DE8;&#x96C6;&#x3092;&#x304A;&#x3053;&#x306A;&#x3044;&#x3001;&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x306E;&#x66F4;&#x65B0;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/ef41ba4015f8a2f42ad5382c33fc1352-640x367.png" alt="" width="640" height="367" class="alignnone size-medium wp-image-349198"></p>
+<p>&#x3057;&#x3070;&#x3089;&#x304F;&#x3059;&#x308B;&#x3068;&#x65B0;&#x3057;&#x3044;&#x30BF;&#x30B9;&#x30AF;&#x5B9A;&#x7FA9;&#x306B;&#x57FA;&#x3065;&#x304F;&#x30BF;&#x30B9;&#x30AF;&#x304C;&#x5B9F;&#x884C;&#x3055;&#x308C;&#x3001;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x4FEE;&#x6B63;&#x304C;&#x53CD;&#x6620;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="architecture.html" class="navigation navigation-prev " aria-label="Previous page: ハンズオンで構築する構成">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="codepipeline.html" class="navigation navigation-next " aria-label="Next page: CodePipeline によるパイプラインの構築">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"手動デプロイしてみる","level":"1.4","depth":1,"next":{"title":"CodePipeline によるパイプラインの構築","level":"1.5","depth":1,"path":"codepipeline.md","ref":"codepipeline.md","articles":[]},"previous":{"title":"ハンズオンで構築する構成","level":"1.3","depth":1,"path":"architecture.md","ref":"architecture.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["copy-code-button"],"pluginsConfig":{"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"manual-deploy.md","mtime":"2019-01-22T07:58:57.423Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-22T08:16:49.141Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

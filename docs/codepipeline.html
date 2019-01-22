@@ -1,0 +1,464 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>CodePipeline によるパイプラインの構築 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="auto_deploy.html" />
+    
+    
+    <link rel="prev" href="manual-deploy.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="preparation.html">
+            
+                <a href="preparation.html">
+            
+                    
+                    パイプライン構築の準備
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="architecture.html">
+            
+                <a href="architecture.html">
+            
+                    
+                    ハンズオンで構築する構成
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="manual-deploy.html">
+            
+                <a href="manual-deploy.html">
+            
+                    
+                    手動デプロイしてみる
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="codepipeline.html">
+            
+                <a href="codepipeline.html">
+            
+                    
+                    CodePipeline によるパイプラインの構築
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="auto_deploy.html">
+            
+                <a href="auto_deploy.html">
+            
+                    
+                    自動デプロイ！
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="stop-when-test-failed.html">
+            
+                <a href="stop-when-test-failed.html">
+            
+                    
+                    テスト失敗時にデプロイが止まることを確認
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="conclusion.html">
+            
+                <a href="conclusion.html">
+            
+                    
+                    まとめ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="delete-environment.html">
+            
+                <a href="delete-environment.html">
+            
+                    
+                    補足：環境の削除
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >CodePipeline によるパイプラインの構築</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="codepipeline-&#x306B;&#x3088;&#x308B;&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x306E;&#x69CB;&#x7BC9;">CodePipeline &#x306B;&#x3088;&#x308B;&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x306E;&#x69CB;&#x7BC9;</h2>
+<p>&#x624B;&#x52D5;&#x3067;&#x306E;&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x304C;&#x5927;&#x5909;&#x3060;&#x3068;&#x611F;&#x3058;&#x3066;&#x3082;&#x3089;&#x3063;&#x305F;&#x3068;&#x3053;&#x308D;&#x3067;&#x3001;CodePipeline/CodeBuild &#x3092;&#x4F7F;&#x7528;&#x3057;&#x305F;&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4ECA;&#x56DE;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x306F;&#x4EE5;&#x4E0B;&#x56F3;&#x306E;&#x5DE6;&#x5074;&#x306E;&#x90E8;&#x5206;&#x3067;&#x3059;&#x3002;</p>
+<p><img src="https://cacoo.com/diagrams/Bik1Om7JvTVGzpfj-5F49C.png" alt="&#x69CB;&#x6210;&#x56F3;"></p>
+<p>&#x3067;&#x306F;&#x3001;&#x65E9;&#x901F;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<p>&#x30DE;&#x30CD;&#x30B8;&#x30E1;&#x30F3;&#x30C8;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306E;&#x30C8;&#x30C3;&#x30D7;&#x753B;&#x9762;&#x3088;&#x308A;&#x300C;CodePipeline&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-15-640x195.png" alt="devops-hands-on-15" width="640" height="195" class="alignnone size-medium wp-image-259029"></p>
+<p>&#x307E;&#x3060;&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x3088;&#x3046;&#x306A;&#x753B;&#x9762;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;&#x306E;&#x3067;&#x300C;&#x4ECA;&#x3059;&#x3050;&#x59CB;&#x3081;&#x308B;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-16-640x269.png" alt="devops-hands-on-16" width="640" height="269" class="alignnone size-medium wp-image-259031"></p>
+<p>&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x306E;&#x30BB;&#x30C3;&#x30C8;&#x30A2;&#x30C3;&#x30D7;&#x304C;&#x958B;&#x59CB;&#x3059;&#x308B;&#x306E;&#x3067;&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x540D;&#x3068;&#x3057;&#x3066;<code>hands-on-pipeline</code>&#x3068;&#x5165;&#x529B;&#x3057;&#x3066;&#x300C;&#x6B21;&#x306E;&#x30B9;&#x30C6;&#x30C3;&#x30D7;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-17-640x204.png" alt="devops-hands-on-17" width="640" height="204" class="alignnone size-medium wp-image-259032"></p>
+<p>&#x30BD;&#x30FC;&#x30B9;&#x30D7;&#x30ED;&#x30D0;&#x30A4;&#x30C0;&#x306E;&#x30BB;&#x30C3;&#x30C8;&#x30A2;&#x30C3;&#x30D7;&#x304C;&#x59CB;&#x307E;&#x308B;&#x306E;&#x3067;&#x4EE5;&#x4E0B;&#x306E;&#x8868;&#x306E;&#x3088;&#x3046;&#x306B;&#x5165;&#x529B;&#x5F8C;&#x3001;&#x300C;&#x6B21;&#x306E;&#x30B9;&#x30C6;&#x30C3;&#x30D7;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x5165;&#x529B;&#x9805;&#x76EE;</th>
+<th>&#x5024;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x30BD;&#x30FC;&#x30B9;&#x30D7;&#x30ED;&#x30D0;&#x30A4;&#x30C0;</td>
+<td>GitHub</td>
+</tr>
+<tr>
+<td>&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;</td>
+<td>&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x3057;&#x3066;&#x304A;&#x3044;&#x305F;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;</td>
+</tr>
+<tr>
+<td>&#x30D6;&#x30E9;&#x30F3;&#x30C1;</td>
+<td>master</td>
+</tr>
+</tbody>
+</table>
+<p>&#x30D3;&#x30EB;&#x30C9;&#x30D7;&#x30ED;&#x30D0;&#x30A4;&#x30C0;&#x306E;&#x30BB;&#x30C3;&#x30C8;&#x30A2;&#x30C3;&#x30D7;&#x304C;&#x59CB;&#x307E;&#x308B;&#x306E;&#x3067;&#x4EE5;&#x4E0B;&#x306E;&#x8868;&#x306E;&#x3088;&#x3046;&#x306B;&#x5165;&#x529B;&#x5F8C;&#x3001;&#x300C;&#x30D3;&#x30EB;&#x30C9;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x4FDD;&#x5B58;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x3066;&#x304B;&#x3089;&#x300C;&#x6B21;&#x306E;&#x30B9;&#x30C6;&#x30C3;&#x30D7;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x5165;&#x529B;&#x9805;&#x76EE;</th>
+<th>&#x5024;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x30D3;&#x30EB;&#x30C9;&#x30D7;&#x30ED;&#x30D0;&#x30A4;&#x30C0;</td>
+<td>AWS CodeBuild</td>
+</tr>
+<tr>
+<td>&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x8A2D;&#x5B9A;</td>
+<td>&#x65B0;&#x3057;&#x3044;&#x30D3;&#x30EB;&#x30C9;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x4F5C;&#x6210;</td>
+</tr>
+<tr>
+<td>&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x540D;</td>
+<td>hands-on-project</td>
+</tr>
+<tr>
+<td>&#x74B0;&#x5883;&#x30A4;&#x30E1;&#x30FC;&#x30B8;</td>
+<td>AWS CodeBuild &#x30DE;&#x30CD;&#x30FC;&#x30B8;&#x30C9;&#x578B;&#x30A4;&#x30E1;&#x30FC;&#x30B8;&#x306E;&#x4F7F;&#x7528;</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Ubuntu</td>
+</tr>
+<tr>
+<td>&#x30E9;&#x30F3;&#x30BF;&#x30A4;&#x30E0;</td>
+<td>Node.js</td>
+</tr>
+<tr>
+<td>&#x30D0;&#x30FC;&#x30B8;&#x30E7;&#x30F3;</td>
+<td>aws/codebuild/nodejs:10.1.0</td>
+</tr>
+<tr>
+<td>&#x30D3;&#x30EB;&#x30C9;&#x4ED5;&#x69D8;</td>
+<td>&#x30BD;&#x30FC;&#x30B9;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x30EB;&#x30FC;&#x30C8;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x306E; buildspec.yml &#x3092;&#x4F7F;&#x7528;</td>
+</tr>
+<tr>
+<td>&#x30AD;&#x30E3;&#x30C3;&#x30B7;&#x30E5; &#x30BF;&#x30A4;&#x30D7;</td>
+<td>&#x30AD;&#x30E3;&#x30C3;&#x30B7;&#x30E5;&#x306A;&#x3057;</td>
+</tr>
+<tr>
+<td>CodeBuild &#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x30ED;&#x30FC;&#x30EB;</td>
+<td><code>&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x304B;&#x3089;&#x65E2;&#x5B58;&#x306E;&#x30ED;&#x30FC;&#x30EB;&#x3092;&#x9078;&#x629E;&#x3057;&#x307E;&#x3059;</code>&#x3092;&#x9078;&#x629E;&#x3057;&#x74B0;&#x5883;&#x69CB;&#x7BC9;&#x7528;&#x30B9;&#x30BF;&#x30C3;&#x30AF;&#x306E;&#x51FA;&#x529B;&#x306E;&#x5024;&#x3092;&#x5165;&#x529B;</td>
+</tr>
+<tr>
+<td>VPC</td>
+<td>No VPC</td>
+</tr>
+<tr>
+<td>&#x7279;&#x6A29;&#x4ED8;&#x4E0E;(&#x30A2;&#x30C9;&#x30D0;&#x30F3;&#x30B9;&#x30C8;&#x5185;)</td>
+<td>&#x2714;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x30D7;&#x30ED;&#x30D0;&#x30A4;&#x30C0;&#x306E;&#x30BB;&#x30C3;&#x30C8;&#x30A2;&#x30C3;&#x30D7;&#x304C;&#x59CB;&#x307E;&#x308B;&#x306E;&#x3067;&#x30D7;&#x30ED;&#x30D0;&#x30A4;&#x30C0;&#x306B;&#x300C;Amazon ECS&#x300D;&#x3092;&#x5165;&#x529B;&#x5F8C;&#x3001;&#x300C;AWS CodeDeploy &#x306B;&#x65B0;&#x305F;&#x306B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;&#x300D;&#x306E;&#x30EA;&#x30F3;&#x30AF;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x5165;&#x529B;&#x9805;&#x76EE;</th>
+<th>&#x5024;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x30C7;&#x30D7;&#x30ED;&#x30A4;&#x30D7;&#x30ED;&#x30D0;&#x30A4;&#x30C0;</td>
+<td>Amazon ECS</td>
+</tr>
+<tr>
+<td>&#x30AF;&#x30E9;&#x30B9;&#x30BF;&#x30FC;&#x540D;</td>
+<td>hands-on-environment-ECSCluster</td>
+</tr>
+<tr>
+<td>&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x540D;</td>
+<td>hands-on-environment-ECSService</td>
+</tr>
+<tr>
+<td>&#x30A4;&#x30E1;&#x30FC;&#x30B8;&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x540D;</td>
+<td><code>imagedefinitions.json</code></td>
+</tr>
+</tbody>
+</table>
+<p>&#x30B3;&#x30D4;&#x30FC;&#x7528;</p>
+<pre><code>imagedefinitions.json
+</code></pre><p>CodePipeline &#x306B;&#x30A2;&#x30BF;&#x30C3;&#x30C1;&#x3059;&#x308B; IAM Role &#x306E;&#x753B;&#x9762;&#x306B;&#x5909;&#x308F;&#x308B;&#x306E;&#x3067;&#x3001;&#x300C;&#x30ED;&#x30FC;&#x30EB;&#x306E;&#x4F5C;&#x6210;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x5F8C;&#x3001;&#x9077;&#x79FB;&#x3059;&#x308B;&#x753B;&#x9762;&#x3067;&#x300C;&#x8A31;&#x53EF;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-21-640x363.png" alt="devops-hands-on-21" width="640" height="363" class="alignnone size-medium wp-image-259055"></p>
+<p>IAM Role &#x306E;&#x4F5C;&#x6210;&#x304C;&#x5B8C;&#x4E86;&#x3057;&#x305F;&#x3089;&#x300C;&#x6B21;&#x306E;&#x30B9;&#x30C6;&#x30C3;&#x30D7;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2017/05/devops-hands-on-22-640x223.png" alt="devops-hands-on-22" width="640" height="223" class="alignnone size-medium wp-image-259056"></p>
+<p>&#x6700;&#x5F8C;&#x306B;&#x78BA;&#x8A8D;&#x753B;&#x9762;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;&#x306E;&#x3067;&#x3001;&#x5185;&#x5BB9;&#x3092;&#x78BA;&#x8A8D;&#x5F8C;&#x3001;&#x300C;&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x306E;&#x4F5C;&#x6210;&#x300D;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="manual-deploy.html" class="navigation navigation-prev " aria-label="Previous page: 手動デプロイしてみる">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="auto_deploy.html" class="navigation navigation-next " aria-label="Next page: 自動デプロイ！">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"CodePipeline によるパイプラインの構築","level":"1.5","depth":1,"next":{"title":"自動デプロイ！","level":"1.6","depth":1,"path":"auto_deploy.md","ref":"auto_deploy.md","articles":[]},"previous":{"title":"手動デプロイしてみる","level":"1.4","depth":1,"path":"manual-deploy.md","ref":"manual-deploy.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["copy-code-button"],"pluginsConfig":{"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"codepipeline.md","mtime":"2019-01-22T08:15:56.454Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-22T08:16:49.141Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
