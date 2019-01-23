@@ -1,4 +1,4 @@
-## ハンズオンで構築する構成
+## 全体構成
 
 ![構成図](https://cacoo.com/diagrams/Bik1Om7JvTVGzpfj-5F49C.png)
 

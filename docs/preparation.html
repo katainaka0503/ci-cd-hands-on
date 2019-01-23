@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>パイプライン構築の準備 · GitBook</title>
+        <title>準備 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="architecture.html" />
+    <link rel="next" href="manual-deploy.html" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="architecture.html" />
     
 
     </head>
@@ -102,12 +102,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="preparation.html">
+        <li class="chapter " data-level="1.2" data-path="architecture.html">
             
-                <a href="preparation.html">
+                <a href="architecture.html">
             
                     
-                    パイプライン構築の準備
+                    全体構成
             
                 </a>
             
@@ -115,12 +115,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="architecture.html">
+        <li class="chapter active" data-level="1.3" data-path="preparation.html">
             
-                <a href="architecture.html">
+                <a href="preparation.html">
             
                     
-                    ハンズオンで構築する構成
+                    準備
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="manual-deploy.html">
             
                     
-                    手動デプロイしてみる
+                    手動デプロイ
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="auto_deploy.html">
             
                     
-                    自動デプロイ！
+                    自動デプロイ
             
                 </a>
             
@@ -236,7 +236,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >パイプライン構築の準備</a>
+        <a href="." >準備</a>
     </h1>
 </div>
 
@@ -251,15 +251,14 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x69CB;&#x7BC9;&#x306E;&#x6E96;&#x5099;">&#x30D1;&#x30A4;&#x30D7;&#x30E9;&#x30A4;&#x30F3;&#x69CB;&#x7BC9;&#x306E;&#x6E96;&#x5099;</h2>
+                                <h2 id="&#x6E96;&#x5099;">&#x6E96;&#x5099;</h2>
 <h3 id="&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x304A;&#x3088;&#x3073;&#x30AF;&#x30ED;&#x30FC;&#x30F3;">&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x304A;&#x3088;&#x3073;&#x30AF;&#x30ED;&#x30FC;&#x30F3;</h3>
-<p>&#x307E;&#x305A;&#x306F;&#x3001;&#x3053;&#x306E;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x3092;&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x3057;&#x3001;&#x81EA;&#x5206;&#x306E;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x306B;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;
-&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306F;&#x3001;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;&#x6570;&#x307E;&#x3067; FizzBuzz &#x3092;&#x8868;&#x793A;&#x3059;&#x308B; Node.js &#x306B;&#x3088;&#x308B;&#x7C21;&#x5358;&#x306A;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x3059;</p>
+<p>&#x307E;&#x305A;&#x306F;&#x3001;<a href="https://github.com/katainaka0503/ci-cd-hands-on" target="_blank">&#x3053;&#x306E;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;</a>&#x3092;&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x3057;&#x3001;&#x81EA;&#x5206;&#x306E;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x306B;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306F;&#x3001;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;&#x6570;&#x307E;&#x3067; FizzBuzz &#x3092;&#x8868;&#x793A;&#x3059;&#x308B; Node.js &#x306B;&#x3088;&#x308B;&#x7C21;&#x5358;&#x306A;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x3059;</p>
 <p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/fork-640x210.png" alt="" width="640" height="210" class="alignnone size-medium wp-image-348765"></p>
 <p>&#x4E0A;&#x306E;&#x30EA;&#x30F3;&#x30AF;&#x304B;&#x3089; GitHub &#x306E;&#x5F53;&#x8A72;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x306E;&#x30DA;&#x30FC;&#x30B8;&#x306B;&#x79FB;&#x52D5;&#x3057;&#x3001;&#x53F3;&#x4E0A;&#x306E; <code>Fork</code> &#x3068;&#x3044;&#x3046;&#x30DC;&#x30BF;&#x30F3;&#x304B;&#x3089;&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;</p>
 <p><img src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/08/f514b4e78f8a717b73707cc3b38dcff4-640x353.png" alt="" width="640" height="353" class="alignnone size-medium wp-image-348767"></p>
-<p>&#x81EA;&#x5206;&#x306E; GitHub &#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x4E0A;&#x306B;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x305F;&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x3057;&#x305F;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x304B;&#x3089;&#x3001;&#x30ED;&#x30FC;&#x30AB;&#x30EB;&#x306E; PC &#x306B;&#x30AF;&#x30ED;&#x30FC;&#x30F3;&#x3057;&#x307E;&#x3059;&#x3002;
-&#x4F5C;&#x696D;&#x7528;&#x306E;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x3067;&#x4EE5;&#x4E0B;&#x306E;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x81EA;&#x5206;&#x306E; GitHub &#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x4E0A;&#x306B;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x305F;&#x30D5;&#x30A9;&#x30FC;&#x30AF;&#x3057;&#x305F;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x304B;&#x3089;&#x3001;&#x30ED;&#x30FC;&#x30AB;&#x30EB;&#x306E; PC &#x306B;&#x30AF;&#x30ED;&#x30FC;&#x30F3;&#x3057;&#x307E;&#x3059;&#x3002;&#x4F5C;&#x696D;&#x7528;&#x306E;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x3067;&#x4EE5;&#x4E0B;&#x306E;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;</p>
 <pre><code class="lang-shell">$ git clone git@github.com:&lt;&#x3054;&#x81EA;&#x5206;&#x306E;github&#x306E;&#x30A2;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x540D;&gt;/ci-cd-hands-on.git
 </code></pre>
 <p>&#x30AF;&#x30ED;&#x30FC;&#x30F3;&#x3055;&#x308C;&#x305F;&#x30EA;&#x30DD;&#x30B8;&#x30C8;&#x30EA;&#x306E;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x306B;&#x79FB;&#x52D5;&#x3057;&#x3066;&#x4E2D;&#x8EAB;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x3001;&#x30AF;&#x30ED;&#x30FC;&#x30F3;&#x304C;&#x6B63;&#x3057;&#x304F;&#x884C;&#x308F;&#x308C;&#x305F;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x307E;&#x3059;&#x3002;</p>
@@ -270,18 +269,16 @@ README.md        package-lock.json    template
 buildspec.yml        package.json        test
 </code></pre>
 <h3 id="&#x30CF;&#x30F3;&#x30BA;&#x30AA;&#x30F3;&#x7528;&#x74B0;&#x5883;&#x69CB;&#x7BC9;&#x7528;&#x306E;-cloudformation-&#x306E;&#x5B9F;&#x884C;">&#x30CF;&#x30F3;&#x30BA;&#x30AA;&#x30F3;&#x7528;&#x74B0;&#x5883;&#x69CB;&#x7BC9;&#x7528;&#x306E; CloudFormation &#x306E;&#x5B9F;&#x884C;</h3>
-<p>&#x4ECA;&#x56DE; ECS &#x3067;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x52D5;&#x4F5C;&#x3055;&#x305B;&#x308B;&#x306B;&#x3042;&#x305F;&#x3063;&#x3066;&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x306B;&#x30EA;&#x30F3;&#x30AF;&#x3057;&#x305F;&#x30ED;&#x30FC;&#x30EB;&#x304C;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
-&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;IAM &#x306E;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x3092;&#x958B;&#x304D;&#x3001;<code>AWSServiceRoleForECS</code>&#x3068;&#x3044;&#x3046;&#x30ED;&#x30FC;&#x30EB;&#x304C;&#x3042;&#x308B;&#x304B;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;
-&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x306B;&#x30EA;&#x30F3;&#x30AF;&#x3057;&#x305F;&#x30ED;&#x30FC;&#x30EB;&#x304C;&#x306A;&#x3044;&#x72B6;&#x614B;&#x3067;&#x3059;&#x306E;&#x3067;&#x3001;&#x30BF;&#x30B9;&#x30AF;&#x304C;&#x5931;&#x6557;&#x3057;&#x3066;&#x3057;&#x307E;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4ECA;&#x56DE; ECS &#x3067;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x52D5;&#x4F5C;&#x3055;&#x305B;&#x308B;&#x306B;&#x3042;&#x305F;&#x3063;&#x3066;&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x306B;&#x30EA;&#x30F3;&#x30AF;&#x3057;&#x305F;&#x30ED;&#x30FC;&#x30EB;&#x304C;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;IAM &#x306E;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x3092;&#x958B;&#x304D;&#x3001;<code>AWSServiceRoleForECS</code>&#x3068;&#x3044;&#x3046;&#x30ED;&#x30FC;&#x30EB;&#x304C;&#x3042;&#x308B;&#x304B;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x306B;&#x30EA;&#x30F3;&#x30AF;&#x3057;&#x305F;&#x30ED;&#x30FC;&#x30EB;&#x304C;&#x306A;&#x3044;&#x72B6;&#x614B;&#x3067;&#x3059;&#x306E;&#x3067;&#x3001;ECS&#x306E;&#x30BF;&#x30B9;&#x30AF;&#x306E;&#x5B9F;&#x884C;&#x304C;&#x5931;&#x6557;&#x3057;&#x3066;&#x3057;&#x307E;&#x3044;&#x307E;&#x3059;&#x3002;</p>
 <p>&#x305D;&#x306E;&#x5834;&#x5408;&#x306F;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x304B;</p>
 <pre><code class="lang-shell">aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 </code></pre>
 <p>&#x7A7A;&#x306E; ECS &#x306E;&#x30AF;&#x30E9;&#x30B9;&#x30BF;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3001;&#x3059;&#x3050;&#x306B;&#x524A;&#x9664;&#x3059;&#x308B;&#x306A;&#x3069;&#x3057;&#x3066; ECS &#x306E;&#x30B5;&#x30FC;&#x30D3;&#x30B9;&#x306B;&#x30EA;&#x30F3;&#x30AF;&#x3057;&#x305F;&#x30ED;&#x30FC;&#x30EB;&#x304C;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x305F;&#x72B6;&#x614B;&#x306B;&#x3057;&#x307E;&#x3059;&#x3002;</p>
-<p><a href="https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=hands-on-environment&amp;templateURL=https://s3-ap-northeast-1.amazonaws.com/ci-cd-hands-on-template/node/hands-on-environment.template.yaml" target="_blank">Launch Stack</a></p>
+<p><a href="https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/quickcreate?stackName=hands-on-environment&amp;templateURL=https://s3-ap-northeast-1.amazonaws.com/ci-cd-hands-on-template/node/hands-on-environment.template.yaml" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"></a></p>
 <p>&#x4E0A;&#x306E;&#x30EA;&#x30F3;&#x30AF;&#x3088;&#x308A;&#x3001;&#x30CF;&#x30F3;&#x30BA;&#x30AA;&#x30F3;&#x7528;&#x306E;&#x74B0;&#x5883;&#x3092;&#x69CB;&#x7BC9;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E; CloudFormation &#x3092;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;</p>
-<p>&#x3053;&#x306E;&#x3001;CloudFormation &#x306B;&#x3088;&#x3063;&#x3066;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x56F3;&#x3088;&#x3046;&#x306A;&#x69CB;&#x6210;&#x306E;&#x74B0;&#x5883;&#x304C;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x3001;CloudFormation &#x306B;&#x3088;&#x3063;&#x3066;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x56F3;&#x306E;&#x3088;&#x3046;&#x306A;&#x69CB;&#x6210;&#x306E;&#x74B0;&#x5883;&#x304C;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
 <p><img src="https://cacoo.com/diagrams/Bik1Om7JvTVGzpfj-2D387.png" alt="CloudFormation&#x306B;&#x3088;&#x3063;&#x3066;&#x3044;&#x69CB;&#x7BC9;&#x3055;&#x308C;&#x308B;&#x69CB;&#x6210;"></p>
-<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x52D5;&#x4F5C;&#x74B0;&#x5883;&#x4EE5;&#x5916;&#x306B;&#x5F8C;&#x3067; CodeBuild &#x3067;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E; IAM &#x3000; Role &#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x52D5;&#x4F5C;&#x74B0;&#x5883;&#x4EE5;&#x5916;&#x306B;&#x5F8C;&#x3067; CodeBuild &#x3067;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E; IAM Role &#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
 <p>&#x4F5C;&#x6210;&#x3057;&#x305F;&#x30B9;&#x30BF;&#x30C3;&#x30AF;&#x304C; <code>CREATE_COMPLETE</code> &#x306E;&#x72B6;&#x614B;&#x306B;&#x306A;&#x308B;&#x307E;&#x3067;&#x5F85;&#x3061;&#x307E;&#x3059;&#x3002;</p>
 <h3 id="&#x52D5;&#x4F5C;&#x78BA;&#x8A8D;">&#x52D5;&#x4F5C;&#x78BA;&#x8A8D;</h3>
 <p>&#x4F5C;&#x6210;&#x3057;&#x305F;&#x30B9;&#x30BF;&#x30C3;&#x30AF;&#x306E;&#x51FA;&#x529B;&#x306B;<code>ALBDNSName</code>&#x3068;&#x3044;&#x3046;&#x30AD;&#x30FC;&#x3067;&#x51FA;&#x529B;&#x3055;&#x308C;&#x305F;&#x5024;&#x304C;&#x3001;&#x4ECA;&#x56DE;&#x306E;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30A2;&#x30AF;&#x30BB;&#x30B9;&#x5148;&#x306E; URL &#x3067;&#x3059;&#x3002;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x30D0;&#x30FC;&#x306B;&#x30B3;&#x30D4;&#x30DA;&#x3057;&#x3066;&#x3001;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x52D5;&#x4F5C;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x307E;&#x3059;&#x3002;</p>
@@ -313,12 +310,12 @@ buildspec.yml        package.json        test
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="architecture.html" class="navigation navigation-prev " aria-label="Previous page: 全体構成">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="architecture.html" class="navigation navigation-next " aria-label="Next page: ハンズオンで構築する構成">
+                <a href="manual-deploy.html" class="navigation navigation-next " aria-label="Next page: 手動デプロイ">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -329,7 +326,7 @@ buildspec.yml        package.json        test
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"パイプライン構築の準備","level":"1.2","depth":1,"next":{"title":"ハンズオンで構築する構成","level":"1.3","depth":1,"path":"architecture.md","ref":"architecture.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["copy-code-button"],"pluginsConfig":{"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"preparation.md","mtime":"2019-01-22T07:22:25.694Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-22T08:16:49.141Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"準備","level":"1.3","depth":1,"next":{"title":"手動デプロイ","level":"1.4","depth":1,"path":"manual-deploy.md","ref":"manual-deploy.md","articles":[]},"previous":{"title":"全体構成","level":"1.2","depth":1,"path":"architecture.md","ref":"architecture.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["copy-code-button"],"pluginsConfig":{"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"preparation.md","mtime":"2019-01-23T07:25:30.044Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T07:27:23.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
